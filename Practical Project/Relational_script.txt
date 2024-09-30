@@ -1,0 +1,58 @@
+#install unzip
+sudo apt-get install unzip
+
+#install postgres
+#create repo config
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+#import key
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+#update packages
+sudo apt-get update
+#Install latest version of postgre
+sudo apt-get -y install postgresql
+
+#switch to postgres user
+sudo su - postgres
+
+#show directory
+pwd
+
+#create directory
+mkdir relacional
+cd relacional
+
+#download file
+wget https://www.datascientist.com.br/engdados/relacional.zip
+unzip relacional.zip
+dir
+cat 1.CreateTable.sql
+
+#login to postgres
+psql
+
+#create database
+create database ed;
+
+#list database
+\list
+
+#change to ed
+\c ed;
+
+#start executing scripts 1 through 6
+\i /var/lib/postgresql/relacional/1.CreateTable.sql
+\i /var/lib/postgresql/relacional/2.InsertClients.sql
+\i /var/lib/postgresql/relacional/3.InsertIntoProducts.sql
+\i /var/lib/postgresql/relacional/4.InsertIntoSellers.sql
+\i /var/lib/postgresql/relacional/5.InsertIntoSales.sql
+\i /var/lib/postgresql/relacional/6.InsertItemsSale.sql
+
+#start interactive script execution
+#This script should not be loaded, but run step by step
+#7.InteractiveSQL.sql
+
+#list tables
+\dt
+
+#exit
+\q
